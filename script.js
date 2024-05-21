@@ -5,6 +5,8 @@ const songSelect = document.getElementById("songSelect");
 const audioPlayer = document.getElementById("audioPlayer");
 const currentSongTitle = document.querySelector(".currentSong h3");
 const volumeRange = document.getElementById("volumeRange");
+const progressBar = document.querySelector(".progress-bar");
+const progressContainer = document.querySelector(".progress");
 
 const loadSong = (song) => {
   audioPlayer.src = `assets/${song}`;
@@ -36,7 +38,14 @@ volumeRange.addEventListener("input", () => {
 });
 
 audioPlayer.addEventListener("timeupdate", () => {
-  const progressBar = document.querySelector(".progress-bar");
   const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
   progressBar.style.width = `${progress}%`;
+});
+
+progressContainer.addEventListener("click", (e) => {
+  const rect = progressContainer.getBoundingClientRect();
+  const offsetX = e.clientX - rect.left;
+  const totalWidth = rect.width;
+  const seekTime = (offsetX / totalWidth) * audioPlayer.duration;
+  audioPlayer.currentTime = seekTime;
 });
