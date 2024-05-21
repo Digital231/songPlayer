@@ -6,11 +6,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const audioPlayer = document.getElementById("audioPlayer");
   const currentSongTitle = document.querySelector(".currentSong h3");
 
-  songSelect.addEventListener("change", () => {
-    const selectedSong = songSelect.value;
-    audioPlayer.src = `assets/${selectedSong}`;
+  const loadSong = (song) => {
+    audioPlayer.src = `assets/${song}`;
     currentSongTitle.textContent =
       songSelect.options[songSelect.selectedIndex].text;
+  };
+
+  loadSong(songSelect.value);
+
+  songSelect.addEventListener("change", () => {
+    loadSong(songSelect.value);
   });
 
   playBtn.addEventListener("click", () => {
