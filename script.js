@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const songSelect = document.getElementById("songSelect");
   const audioPlayer = document.getElementById("audioPlayer");
   const currentSongTitle = document.querySelector(".currentSong h3");
+  const volumeRange = document.getElementById("volumeRange");
 
   const loadSong = (song) => {
     audioPlayer.src = `assets/${song}`;
@@ -29,6 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
   stopBtn.addEventListener("click", () => {
     audioPlayer.pause();
     audioPlayer.currentTime = 0;
+  });
+
+  volumeRange.addEventListener("input", () => {
+    audioPlayer.volume = volumeRange.value;
   });
 
   audioPlayer.addEventListener("timeupdate", () => {
